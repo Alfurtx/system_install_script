@@ -1,51 +1,46 @@
 #!/bin/sh
 
 function check_is_laptop() {
-    while true; do
-        read -p "[fonsi] estas tratando de instalarlo en un portatil? [y/n]" yn
-        case $yn in
-            [yY]* ) export IS_LAPTOP=1;;
-            [nN]* ) export IS_LAPTOP=0;;
-            * ) echo "[fonsi] porfiplis, solo responde 'y' o 'n'";;
-        esac
-    done
+    read -p "[fonsi] estas tratando de instalarlo en un portatil? [y/n]" yn
+    case $yn in
+        [yY]* ) export IS_LAPTOP=1;;
+        [nN]* ) export IS_LAPTOP=0;;
+        * ) echo "[fonsi] porfiplis, solo responde 'y' o 'n'";;
+    esac
 }
 
 function check_is_vbox() {
-    while true; do
-        read -p "[fonsi] estas tratando de instalarlo en una maquina virtual? [y/n]" yn
-        case $yn in
-            [yY]* ) 
-                export ISVIRT=1
-                sudo pacman -S virtualbox-guest-utils xf86-video-vmware xf86-video-fbdev
-                VBoxClient-all
-                ;;
-            [nN]* ) 
-                export ISVIRT=0
-                ;;
-            * ) 
-                echo "[fonsi] porfiplis, solo responde 'y' o 'n'"
-                ;;
-        esac
-    done
+    read -p "[fonsi] estas tratando de instalarlo en una maquina virtual? [y/n]" yn
+    case $yn in
+        [yY]* ) 
+            export ISVIRT=1
+            sudo pacman -S --needed virtualbox-guest-utils xf86-video-vmware xf86-video-fbdev
+            VBoxClient-all
+            ;;
+        [nN]* ) 
+            export ISVIRT=0
+            ;;
+        * ) 
+            echo "[fonsi] porfiplis, solo responde 'y' o 'n'"
+            ;;
+    esac
 }
 
 function check_is_desktop() {
-    while true; do
-        read -p "[fonsi] estas tratando de instalarlo en un escritorio fisico? [y/n]" yn
-        case $yn in
-            [yY]* ) 
-                export ISDESKTOP=1
-                sudo pacman -S nvidia
-                ;;
-            [nN]* ) 
-                export ISDESKTOP=0
-                ;;
-            * ) 
-                echo "[fonsi] porfiplis, solo responde 'y' o 'n'"
-                ;;
-        esac
-    done
+    read -p "[fonsi] estas tratando de instalarlo en un escritorio fisico? [y/n]" yn
+    case $yn in
+        [yY]* ) 
+            export ISDESKTOP=1
+            sudo pacman -S --needed nvidia
+            nvidia-xconfig
+            ;;
+        [nN]* ) 
+            export ISDESKTOP=0
+            ;;
+        * ) 
+            echo "[fonsi] porfiplis, solo responde 'y' o 'n'"
+            ;;
+    esac
 }
 
 function install_wallpapers() {
@@ -59,7 +54,7 @@ function install_wallpapers() {
 function install_laptop_stuff() {
     cd
     if [[ $IS_LAPTOP ]]; then
-        sudo pacman -S xf86-video-intel acpi cbatticon xf86-input-libinput xorg-xinput
+        sudo pacman -S --needed xf86-video-intel acpi cbatticon xf86-input-libinput xorg-xinput
     fi
 }
 
@@ -70,7 +65,7 @@ function create_config_dir() {
 }
 
 function install_xorg() {
-    sudo pacman -S xorg xorg-xinit
+    sudo pacman -S --needed xorg xorg-xinit
 }
 
 function install_paru() {
