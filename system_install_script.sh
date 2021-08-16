@@ -121,16 +121,12 @@ function ssh_key_gen() {
     eval $(ssh-agent -s)
     ssh-add ~/.ssh/id_rsa
     echo "[fonsi] RECUERDA AÑADIR ESTA CLAVE A TU CUENTA DE GITHUB"
-
-    while true; do
-        xclip -sel clip < ~/.ssh/id_rsa.pub
-        read -p "[fonsi] has añadido la clave a tu cuenta? [y/n]" yn
-        case $yn in
-            [yY]* ) ;;
-            [nN]* ) ;;
-        esac
-    done
-
+    xclip -sel clip < ~/.ssh/id_rsa.pub
+    read -p "[fonsi] has añadido la clave a tu cuenta? [y/n]" yn
+    case $yn in
+        [yY]* ) ;;
+        [nN]* ) ;;
+    esac
 }
 
 function main() {
