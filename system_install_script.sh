@@ -117,7 +117,7 @@ function set_system_zshenv() {
 function ssh_key_gen() {
     paru -S openssh xclip
     echo "[fonsi] generating ssh key for this computer..."
-    ssh-keygen -t rsa -b 4096 "alfonso.alfurtx@gmail.com"
+    ssh-keygen -t rsa -b 4096 -C "alfonso.alfurtx@gmail.com"
     eval $(ssh-agent -s)
     ssh-add ~/.ssh/id_rsa
     echo "[fonsi] RECUERDA AÑADIR ESTA CLAVE A TU CUENTA DE GITHUB"
