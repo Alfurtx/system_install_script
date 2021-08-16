@@ -82,7 +82,7 @@ function install_paru() {
 function install_packages() {
     cd
     cd aux
-    git clone git@gist.github.com:d2dab30b6d713d0bb657eac3dc072d83.git
+    git clone https://gist.github.com/d2dab30b6d713d0bb657eac3dc072d83.git
     cd d2dab30b6d713d0bb657eac3dc072d83
     paru -S --needed $(tr '\n' ' ' < $HOST.pacmanity)
     if [[ ! $ISVIRT ]]; then
@@ -98,6 +98,8 @@ function install_oh_my_zsh() {
 function install_dotfiles() {
     cd
     cd .config
+    
+    yadm clone https://github.com/Alfurtx/dotfiles.git -w ~/.config
 
     if [[ $IS_LAPTOP ]]; then
         yadm config local.class laptop
@@ -105,13 +107,11 @@ function install_dotfiles() {
         yadm config local.class desktop
     fi
 
-    yadm clone https://github.com/Alfurtx/dotfiles.git -w ~/.config
-
     cd
 }
 
 function set_system_zshenv() {
-    echo "export ZDOTDIR=~/.config/zsh" >> /etc/zsh/zshenv
+    sudo sh -c 'echo "export ZDOTDIR=~/.config/zsh" >> /etc/zsh/zshenv'
 }
 
 # function ssh_key_gen() {
