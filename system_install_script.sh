@@ -82,11 +82,9 @@ function install_paru() {
 function install_packages() {
     cd
     cd aux
-    paru -S pacmanity
-    read -p echo "[fonsi] crea un token de acceso personal en github y pasalo como contraseña [pulsa 'y' cuando ya lo tengas]" y
-    git clone https://gist.github.com/d2dab30b6d713d0bb657eac3dc072d83.git
+    git clone git@gist.github.com:d2dab30b6d713d0bb657eac3dc072d83.git
     cd d2dab30b6d713d0bb657eac3dc072d83
-    paru -S --needed $(tr '\n' ' ' < $(hostname).pacmanity)
+    paru -S --needed $(tr '\n' ' ' < $HOST.pacmanity)
     if [[ ! $ISVIRT ]]; then
         sudo pacman -Rs virtualbox-guest-utils xf86-video-vmware xf86-video-fbdev
     fi
@@ -107,7 +105,8 @@ function install_dotfiles() {
         yadm config local.class desktop
     fi
 
-    yadm clone https://github.com/Alfurtx/dotfiles.git -f -w ~/.config --bootstrap
+    yadm clone https://github.com/Alfurtx/dotfiles.git -w ~/.config --bootstrap
+
     cd
 }
 
