@@ -30,6 +30,24 @@ function check_is_vbox() {
     done
 }
 
+function check_is_desktop() {
+    while true; do
+        read -p "[fonsi] estas tratando de instalarlo en un escritorio fisico? [y/n]" yn
+        case $yn in
+            [yY]* ) 
+                export ISDESKTOP=1
+                sudo pacman -S nvidia
+                ;;
+            [nN]* ) 
+                export ISDESKTOP=0
+                ;;
+            * ) 
+                echo "[fonsi] porfiplis, solo responde 'y' o 'n'"
+                ;;
+        esac
+    done
+}
+
 function install_wallpapers() {
     cd
     mkdir -p pictures/wallpapers 
