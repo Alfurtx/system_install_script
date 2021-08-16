@@ -105,7 +105,7 @@ function install_dotfiles() {
         yadm config local.class desktop
     fi
 
-    yadm clone https://github.com/Alfurtx/dotfiles.git -w ~/.config --bootstrap
+    yadm clone https://github.com/Alfurtx/dotfiles.git -w ~/.config
 
     cd
 }
