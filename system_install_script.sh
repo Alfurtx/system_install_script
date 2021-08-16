@@ -83,7 +83,8 @@ function install_packages() {
     cd
     cd aux
     paru -S pacmanity
-    git clone git@gist.github.com:d2dab30b6d713d0bb657eac3dc072d83.git
+    read -p echo "[fonsi] crea un token de acceso personal en github y pasalo como contraseña [pulsa 'y' cuando ya lo tengas]" y
+    git clone https://gist.github.com/d2dab30b6d713d0bb657eac3dc072d83.git
     cd d2dab30b6d713d0bb657eac3dc072d83
     paru -S --needed $(tr '\n' ' ' < $(hostname).pacmanity)
     if [[ ! $ISVIRT ]]; then
@@ -114,20 +115,20 @@ function set_system_zshenv() {
     echo "export ZDOTDIR=~/.config/zsh" >> /etc/zsh/zshenv
 }
 
-function ssh_key_gen() {
-    paru -S openssh xclip
-    echo "[fonsi] generating ssh key for this computer..."
-    ssh-keygen -t rsa -b 4096 -C "alfonso.alfurtx@gmail.com"
-    eval $(ssh-agent -s)
-    ssh-add ~/.ssh/id_rsa
-    echo "[fonsi] RECUERDA AÑADIR ESTA CLAVE A TU CUENTA DE GITHUB"
-    xclip -sel clip < ~/.ssh/id_rsa.pub
-    read -p "[fonsi] has añadido la clave a tu cuenta? [y/n]" yn
-    case $yn in
-        [yY]* ) ;;
-        [nN]* ) ;;
-    esac
-}
+# function ssh_key_gen() {
+    # paru -S openssh xclip
+    # echo "[fonsi] generating ssh key for this computer..."
+    # ssh-keygen -t rsa -b 4096 -C "alfonso.alfurtx@gmail.com"
+    # eval $(ssh-agent -s)
+    # ssh-add ~/.ssh/id_rsa
+    # echo "[fonsi] RECUERDA AÑADIR ESTA CLAVE A TU CUENTA DE GITHUB"
+    # xclip -sel clip < ~/.ssh/id_rsa.pub
+    # read -p "[fonsi] has añadido la clave a tu cuenta? [y/n]" yn
+    # case $yn in
+    #     [yY]* ) ;;
+    #     [nN]* ) ;;
+    # esac
+# }
 
 function main() {
     sudo pacman -Syu
@@ -137,7 +138,7 @@ function main() {
     install_laptop_stuff
     install_xorg
     install_paru
-    ssh_key_gen
+    # ssh_key_gen
     install_packages
     set_system_zshenv
     install_dotfiles
