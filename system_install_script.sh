@@ -84,7 +84,8 @@ function install_packages() {
     cd aux
     git clone https://gist.github.com/d2dab30b6d713d0bb657eac3dc072d83.git
     cd d2dab30b6d713d0bb657eac3dc072d83
-    paru -S --needed $(tr '\n' ' ' < $HOST.pacmanity)
+    sed '/pacmanity/d' archvbox.pacmanity > packages
+    paru -S --needed $(tr '\n' ' ' < packages)
     if [[ ! $ISVIRT ]]; then
         sudo pacman -Rs virtualbox-guest-utils xf86-video-vmware xf86-video-fbdev
     fi
@@ -93,6 +94,7 @@ function install_packages() {
 
 function install_oh_my_zsh() {
     sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+    export ZSH_CUSTOM=/home/fonsi/.config/oh-my-zsh
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
     git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
