@@ -43,6 +43,10 @@ function check_is_desktop() {
     esac
 }
 
+function make_makepkg_multithread() {
+    sudo sh -c 'echo "MAKEFLAGS="-j$(nproc)"" >> /etc/makepkg.conf'
+}
+
 function install_wallpapers() {
     cd
     mkdir -p pictures/wallpapers 
