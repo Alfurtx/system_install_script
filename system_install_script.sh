@@ -31,11 +31,25 @@ function check_is_desktop() {
     case $yn in
         [yY]* ) 
             export ISDESKTOP=1
-            sudo pacman -S --needed nvidia
+            sudo pacman -S --needed nvidia xorg-xrandr
             nvidia-xconfig
             ;;
         [nN]* ) 
             export ISDESKTOP=0
+            ;;
+        * ) 
+            echo "[fonsi] porfiplis, solo responde 'y' o 'n'"
+            ;;
+    esac
+}
+
+function check_is_amd() {
+    read -p "[fonsi] estas tratando de instalarlo en un AMD o intel? [y/n]" yn
+    case $yn in
+        [yY]* ) 
+            sudo pacman -S --needed amd-ucode lm_sensors
+            ;;
+        [nN]* ) 
             ;;
         * ) 
             echo "[fonsi] porfiplis, solo responde 'y' o 'n'"
@@ -149,6 +163,8 @@ function main() {
     sudo pacman -Syu
     check_is_laptop
     check_is_vbox
+    check_is_desktop
+    check_is_amd
     create_config_dir
     install_laptop_stuff
     install_xorg
